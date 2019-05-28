@@ -338,3 +338,7 @@ func (c *Client) NewExchangeInfoService() *ExchangeInfoService {
 func (c *Client) NewGetWithdrawFeeService() *GetWithdrawFeeService {
 	return &GetWithdrawFeeService{c: c}
 }
+
+func (c *Client) NewDepositAddressService() *DepositAddressService {
+	return &DepositAddressService{c: c}
+}
