@@ -7,16 +7,22 @@ import (
 
 // CreateWithdrawService create withdraw
 type CreateWithdrawService struct {
-	c       *Client
-	asset   string
-	address string
-	amount  string
-	name    *string
+	c          *Client
+	asset      string
+	address    string
+	addressTag *string
+	amount     string
+	name       *string
 }
 
 // Asset set asset
 func (s *CreateWithdrawService) Asset(asset string) *CreateWithdrawService {
 	s.asset = asset
+	return s
+}
+
+func (s *CreateWithdrawService) AddressTag(tag string) *CreateWithdrawService {
+	s.addressTag = &tag
 	return s
 }
 
@@ -50,6 +56,9 @@ func (s *CreateWithdrawService) Do(ctx context.Context) (err error) {
 	r.setParam("amount", s.amount)
 	if s.name != nil {
 		r.setParam("name", *s.name)
+	}
+	if s.addressTag != nil {
+		r.setParam("addressTag", *s.addressTag)
 	}
 	_, err = s.c.callAPI(ctx, r)
 	return err
