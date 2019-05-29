@@ -45,7 +45,7 @@ func (s *CreateWithdrawService) Name(name string) *CreateWithdrawService {
 }
 
 // Do send request
-func (s *CreateWithdrawService) Do(ctx context.Context) (err error) {
+func (s *CreateWithdrawService) Do(ctx context.Context) (wi WithdrawalResult, err error) {
 	r := &request{
 		method:   "POST",
 		endpoint: "/wapi/v3/withdraw.html",
@@ -60,8 +60,22 @@ func (s *CreateWithdrawService) Do(ctx context.Context) (err error) {
 	if s.addressTag != nil {
 		r.setParam("addressTag", *s.addressTag)
 	}
-	_, err = s.c.callAPI(ctx, r)
-	return err
+	data, err := s.c.callAPI(ctx, r)
+	if err != nil {
+
+	}
+
+	err = json.Unmarshal(data, &wi)
+	if err != nil {
+		return
+	}
+	return wi, nil
+}
+
+type WithdrawalResult struct {
+	Msg     string `json:"msg"`
+	Success string `json:"success"`
+	ID      string `json:"id"`
 }
 
 // ListWithdrawsService list withdraws
