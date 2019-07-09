@@ -74,7 +74,7 @@ func (s *CreateWithdrawService) Do(ctx context.Context) (wi WithdrawalResult, er
 
 type WithdrawalResult struct {
 	Msg     string `json:"msg"`
-	Success string `json:"success"`
+	Success bool   `json:"success"`
 	ID      string `json:"id"`
 }
 
