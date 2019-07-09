@@ -150,6 +150,7 @@ type WithdrawHistoryResponse struct {
 
 // Withdraw define withdraw info
 type Withdraw struct {
+	ID        string  `json:"id"`
 	Amount    float64 `json:"amount"`
 	Address   string  `json:"address"`
 	Asset     string  `json:"asset"`
